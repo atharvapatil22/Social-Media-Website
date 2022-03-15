@@ -10,6 +10,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .container {
@@ -21,7 +23,7 @@
 }
 
 #navbar {
-  position: fixed;
+  /* position: fixed; */
   height: var(--navbar-height);
   background-color: var(--navbar-bg-color);
   left: 0;
@@ -62,6 +64,10 @@
   border-radius: 1em;
 }
 
+.navbar-link:is(:focus, :hover) {
+  color: red;
+}
+
 .navbar-logo {
   background-color: var(--navbar-text-color-focus);
   border-radius: 50%;
@@ -99,7 +105,7 @@
   visibility: visible;
   opacity: 1;
   position: static;
-  display: block;
+  /* display: block; */
   height: 100%;
 }
 
