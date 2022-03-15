@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+
+  const navigate = useNavigate();
 
   const login = async () => {
     if (!username || !password) {
@@ -17,19 +21,24 @@ function Login() {
         password: password,
       })
       .then((res) => {
-        if (res?.data) alert(res.data);
-        console.log("Response: ", res);
+        console.log("Response: ", res.data);
+        if (res.data.loggedIn) {
+          localStorage.setItem("loggedIn", true);
+          localStorage.setItem("username", res.data.username);
+          navigate("/");
+          window.location.reload();
+        }
       })
       .catch((err) => {
-        if (err?.response?.data) alert(err.response.data);
-        console.log("Error: ", err.response);
+        if (err?.response?.data) setErrMsg(err.response.data.message);
+        console.log("Error: ", err);
       });
   };
 
   return (
     <div className="login">
       <h1>Login</h1>
-      <div className="login-form">
+      <form className="login-form" onSubmit={login}>
         <input
           required
           type={"text"}
@@ -42,8 +51,11 @@ function Login() {
           placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
         />
-        <button onClick={login}>Login</button>
-      </div>
+        <button type="button" onClick={login}>
+          Login
+        </button>
+        {!!errMsg && <h3 style={{ color: "red" }}>{errMsg}</h3>}
+      </form>
     </div>
   );
 }

@@ -65,6 +65,7 @@
 }
 
 .navbar-link:is(:focus, :hover) {
+  cursor: pointer;
   color: red;
 }
 

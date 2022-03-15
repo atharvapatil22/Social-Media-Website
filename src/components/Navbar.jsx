@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(JSON.parse(localStorage.getItem("loggedIn")) === true);
+  }, [localStorage.getItem("loggedIn")]);
+
   return (
     <header id="navbar">
       <nav className="navbar-container container">
@@ -19,16 +25,29 @@ function Navbar() {
                 Home
               </Link>
             </li>
-            <li className="navbar-item">
-              <Link className="navbar-link" to={"/register"}>
-                Register
-              </Link>
-            </li>
-            <li className="navbar-item">
-              <Link className="navbar-link" to={"/login"}>
-                Login
-              </Link>
-            </li>
+            {!loggedIn ? (
+              <>
+                <li className="navbar-item">
+                  <Link className="navbar-link" to={"/register"}>
+                    Register
+                  </Link>
+                </li>
+
+                <li className="navbar-item">
+                  <Link className="navbar-link" to={"/login"}>
+                    Login
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="navbar-item">
+                  <Link className="navbar-link" to={"/profile"}>
+                    Profile
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>
