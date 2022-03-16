@@ -42,6 +42,11 @@ function Navbar() {
             ) : (
               <>
                 <li className="navbar-item">
+                  <Link className="navbar-link" to={"/upload"}>
+                    Upload
+                  </Link>
+                </li>
+                <li className="navbar-item">
                   <Link className="navbar-link" to={"/profile"}>
                     Profile
                   </Link>
